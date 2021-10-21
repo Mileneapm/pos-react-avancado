@@ -1,0 +1,36 @@
+.menu {
+  background-color: #034c6e63;
+  color: #b6cfde;
+  padding: 10px;
+}
+
+.painel {
+  text-align:center;
+  color: #b6cfde;
+}
+
+.App form {
+  width: 600px;
+  margin: 80px auto;
+}
+
+.form-control-group {
+  text-align:center;
+  display: table-footer-group;
+  flex-direction: column;
+  margin-bottom: 5px;
+  color:#b6cfde;
+}
+
+.button-cart-solid {
+  background-color: #4CAF50; /* Green */
+  border-radius: 12px;
+  border: 2px solid #4CAF50;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
