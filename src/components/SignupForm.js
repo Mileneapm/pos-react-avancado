@@ -3,7 +3,9 @@ import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 import '../App.css';
 import { number } from 'yup/lib/locale';
-import { Alert } from 'react-bootstrap';
+
+const horas = new Date();
+console.log( horas.getHours() );
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -15,28 +17,24 @@ const SignupSchema = Yup.object().shape({
     .max(50, "Too Long!")
     .required("Required"),
   email: Yup.string()
-    .string()
     .email('Invalid email format')
     .required('Required'),
-  cpf: Yup.number()
-    .min(11, "CPF Invalid")
-    .max(11, "CPF Invalid!")
-    .required("Required"),
-  celular: Yup.number()
-    .min(11, "(DDD)000000000")
-    .max(11, "(DDD)000000000")
-    .required("Required"),
+  cpf: Yup.string()
+    .matches(/\d{3}\.\d{3}\.\d{3}\-\d{2}/g, "CPF 000.000.000-00")
+    .required(),
+  dataNascimento: Yup.date()
+    .max(new Date(), "Data inválida mm/dd/yyyy")
+    .required("Campo obrigatório"),
+  celular: Yup.string()
+    .matches(/\(\d{2}\) \d{5}\-\d{4}/g, "(00) 00000-0000")
+    .required(),
+  genero: Yup.number()
+    .moreThan(0)
+    .required(),
+  description: Yup.string()
+    .max(255)
+    .required(),
 });
-
-function onBlurCep(ev, setFieldValue) {
-  const { value } = ev.target;
-  const cep = value?.replace(/[^0-9]/g, '')
-
-  if (cep?.length !== 8) {
-    console.log("cep inválido")
-    return;
-  }
-}
 
 function SignupForm() {
   return (
@@ -60,14 +58,16 @@ function SignupForm() {
       >
         {({ values, errors, touched }) => (
           <div>
-            <Form className="menu">
+            <Form>
               <h2 className="painel">Cadastro</h2>
               <div className="form-control-group">
                 <label>Nome:</label>
                 <Field type="text" name="firstName" />
-                {touched.firstName && errors.firstName ? <div>{errors.firstName}</div> : null}
+                {touched.firstName && errors.firstName ? <div>{errors.firstName}</div> : null} 
+                <br />
                 <label>Sobrenome:</label>
                 <Field type="text" name="lastName" />
+                <br />
                 {touched.lastName && errors.lastName ? <div>{errors.lastName}</div> : null}
               </div>
               <br />
@@ -75,18 +75,22 @@ function SignupForm() {
               <div className="form-control-group">
                 <label>E-mail: </label>
                 <Field type="text" name="email" />
+                <br />
                 {touched.email && errors.email ? <div>{errors.email}</div> : null}
                 <label>Celular: </label>
                 <Field type="text" name="celular" />
+                <br />
                 {touched.celular && errors.celular ? <div>{errors.celular}</div> : null}
               </div>
               <br />
               <div className="form-control-group">
                 <label>CPF: </label>
                 <Field type="text" name="cpf" />
-                <Alert>{touched.cpf && errors.cpf ? <div>{errors.cpf}</div> : null}</Alert>
+                <br />
+                {touched.cpf && errors.cpf ? <div>{errors.cpf}</div> : null}
                 <label>Data Nascimento: </label>
                 <Field type="text" name="dataNascimento" />
+                {touched.dataNascimento && errors.dataNascimento ? <div>{errors.dataNascimento}</div> : null}
               </div>
               <br />
               <div className="form-control-group">
@@ -97,6 +101,8 @@ function SignupForm() {
                   <option value="1">Masculino</option>
                   <option value="2">Feminino</option>
                 </Field>
+                <br />
+                {touched.genero && errors.genero ? <div>{errors.genero}</div> : null}
                 <br />
                 <label className="form-control-group">Descrição: </label>
                 <br />

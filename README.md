@@ -1,9 +1,3 @@
-
-- O campo email deve ser um e-mail válido (jon@examle.com);
-- O campo data de nascimento deve ser menor que a data atual + 1;
-- O campo gênero é obrigatório;
-- O campo celular deve possuir 11 caracteres incluindo o DDD;
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
